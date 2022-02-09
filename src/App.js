@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import "./App.css";
 import React from "react";
 import Checkout from "./pages/checkout/checkout.component";
+import CollectionPage from "./pages/collection/collection.component";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -42,7 +43,10 @@ class App extends React.Component {
         <Header />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/shop" element={<ShopPage />} />
+          <Route exact path="/shop">
+            <Route index element={<ShopPage />} />
+            <Route path=":collection" element={<CollectionPage />} />
+          </Route>
           <Route path="signin" element={this.props.currentUser ? <Navigate to="/" /> : <Auth />} />
           <Route exact path="/checkout" element={<Checkout />} />
         </Routes>
